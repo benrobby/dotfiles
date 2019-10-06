@@ -1,0 +1,15 @@
+[user]
+	name = Ben Hurdelhey
+	email = 26392770+ben243871694@users.noreply.github.com\"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[email]
+	name = 26392770+ben243871694@users.noreply.github.com
+[diff]
+	submodule = log
+[status]
+	submodulesummary = 1
