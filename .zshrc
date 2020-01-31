@@ -61,9 +61,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git colored-man-pages colorize osx zsh-syntax-highlighting zsh-autosuggestions extract tmux web-search)
-
-source $ZSH/oh-my-zsh.sh
+#zsh-syntax-highlighting zsh-autosuggestions  
 
 # User configuration
 
@@ -95,7 +93,55 @@ source $ZSH/oh-my-zsh.sh
 alias git='LANG=en_US git'
 #alias git='LANG=en_GB git'
 
+
+# ===== History
+# Allow multiple terminal sessions to all append to one zsh command history
+setopt APPEND_HISTORY
+# Save each command’s beginning timestamp (in seconds since the epoch) and the duration (in seconds) to the history file
+setopt EXTENDED_HISTORY
+# Add commands as they are typed, don't wait until shell exit
+setopt INC_APPEND_HISTORY
+# If the internal history needs to be trimmed to add the current command line, setting this option will cause the oldest history event that has a duplicate to be lost before losing a unique event
+setopt HIST_EXPIRE_DUPS_FIRST
+# Do not enter command lines into the history list if they are duplicates of the previous event
+setopt HIST_IGNORE_DUPS
+# When searching history don't display results already cycled through twice
+setopt HIST_FIND_NO_DUPS
+# remove the history (fc -l) command from the history list when invoked
+setopt HIST_NO_STORE
+# remove superfluous blanks from each command line being added to the history list
+setopt HIST_REDUCE_BLANKS
+# whenever the user enters a line with history expansion, don’t execute the line directly 
+setopt HIST_VERIFY
+
+
+# ===== Completion
+# show completion menu on successive tab press ... needs unsetop menu_complete to work
+setopt AUTO_MENU
+# automatically list choices on an ambiguous completion
+setopt AUTO_LIST
+# when listing files that are possible completions, show the type of each file with a trailing identifying mark
+setopt LIST_TYPES
+# extra completion
+setopt COMPLETE_ALIASES
+# if unset, the cursor is set to the end of the word if completion is started. Otherwise it stays there and completion is done from both ends
+setopt COMPLETE_IN_WORD
+# if a completion is performed with the cursor within a word, and a full completion is inserted, the cursor is moved to the end of the word
+setopt ALWAYS_TO_END
+
+# do not autoselect the first completion entry
+setopt MENU_COMPLETE
+# do not set auto_name_dirs because it messes up prompts (any parameter that is set to the absolute name of a directory immediately becomes a name for that directory)
+unsetopt AUTO_NAME_DIRS
+if brew command command-not-found-init > /dev/null 2>&1; then eval "$(brew command-not-found-init)"; fi
+
+plugins=(git colored-man-pages colorize osx extract tmux web-search zsh-autosuggestions history-substring-search command-not-found)
+
+source $ZSH/oh-my-zsh.sh
+
+# non zsh utils
 alias ll="ls -lsa"
+alias fgrep="grep -F"
 bindkey "^[^[[D" backward-word
 bindkey "^[^[[C" forward-word
 export NVM_DIR="$HOME/.nvm"
@@ -104,4 +150,6 @@ export NVM_DIR="$HOME/.nvm"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export LC_ALL=en_US.UTF-8
-
+export PATH="/usr/local/opt/python@3.8/bin:$PATH"
+export LDFLAGS="-L/usr/local/opt/python@3.8/lib"
+source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
