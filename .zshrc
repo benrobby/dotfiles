@@ -135,13 +135,15 @@ setopt MENU_COMPLETE
 unsetopt AUTO_NAME_DIRS
 if brew command command-not-found-init > /dev/null 2>&1; then eval "$(brew command-not-found-init)"; fi
 
-plugins=(git colored-man-pages colorize osx extract tmux web-search zsh-autosuggestions history-substring-search command-not-found)
+plugins=(git colored-man-pages colorize osx extract tmux history-substring-search)
 
 source $ZSH/oh-my-zsh.sh
 
 # non zsh utils
 alias ll="ls -lsa"
 alias fgrep="grep -F"
+alias dev="cd ~/develop"
+
 bindkey "^[^[[D" backward-word
 bindkey "^[^[[C" forward-word
 export NVM_DIR="$HOME/.nvm"
